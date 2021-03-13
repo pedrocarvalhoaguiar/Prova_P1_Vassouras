@@ -48,7 +48,7 @@ def Iniciar():
 
 def Carregar():
     agenda = []
-    with open('agenda.txt', 'r') as arquivo:
+    with open('agenda.txt', 'r', encoding='utf-8') as arquivo:
         for line in arquivo.readlines(): 
             colunaInfo = line.split(',')
             contato = {
@@ -137,14 +137,14 @@ def leContato(cpf, op):
 
 def Cadastrar(agenda):
     while True:
-        cpf = input('Digite o CPF, sem pontos ou traços: ')
+        cpf = leCpf()
         if not ValidarContato(agenda, cpf):
             break
         else:
             print('Este CPF consta no banco de dados')
     contato = leContato(cpf)   
     agenda.append(contato)
-    arquivo = open('agenda.txt', 'a')
+    arquivo = open('agenda.txt', 'a', encoding='utf-8')
     salvarContatoNoDisco(contato, arquivo, 1)
     arquivo.close()
     print('Finalizando o cadastro ...')
@@ -201,7 +201,7 @@ def Excluir(agenda):
                 if contato['cpf'] == cpf:
                     del agenda[i]
                     break
-            arquivo = open('agenda.txt', 'w')
+            arquivo = open('agenda.txt', 'w', encoding='utf-8')
             for contato in agenda:
                 salvarContatoNoDisco(contato, arquivo, 2)
             arquivo.close()
@@ -223,7 +223,7 @@ def atualizar(agenda):
                     agenda[i] = leContato(cpf)
                     alterado = agenda[i]
                     break
-            arquivo = open('agenda.txt', 'w')
+            arquivo = open('agenda.txt', 'w', encoding='utf-8')
             for contato in agenda:
                 if contato == alterado:
                     salvarContatoNoDisco(contato, arquivo, 1)
